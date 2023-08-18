@@ -6,12 +6,20 @@ class Letter {
 
   constructor(screen: Screen) {
     this._screen = screen;
-    EventBus.getInstance().subscribe("change-letter", ({ letter }) =>
-      this.render(letter)
+
+    EventBus.getInstance().subscribe("change-letter", ({ letter: { key } }) =>
+      this.render(key)
     );
   }
 
   render(letter: string) {
+    this._screen.context.clearRect(
+      0,
+      0,
+      this._screen.canvas.width,
+      this._screen.canvas.height
+    );
+
     const fontSize = this._screen.canvas.height / 3;
     this._screen.context.font = `${fontSize}px sans-serif`;
     const {
