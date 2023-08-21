@@ -2,15 +2,16 @@ import "./styles.css";
 
 import { ChangeLetterEvent, EventBus } from "./core";
 import { KeyboardEventHandler } from "./feature";
-
-import { Letter, Screen } from "./ui";
+import { UIEngine } from "./ui";
 
 class Engine {
+  private ui: UIEngine;
+
   constructor() {
-    const screen = new Screen();
-    new Letter(screen);
     new KeyboardEventHandler();
 
+    this.ui = new UIEngine();
+    this.ui.render();
     EventBus.getInstance().subscribe("guessed-letter", () => this.init());
   }
 
@@ -47,7 +48,7 @@ class Engine {
     return alphabet[(Math.random() * alphabet.length) | 0];
   }
 
-  init() {
+  public init() {
     EventBus.getInstance().publish(
       "change-letter",
       new ChangeLetterEvent(this.generateLetter())

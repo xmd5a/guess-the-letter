@@ -1,38 +1,34 @@
-import { EventBus } from "../../core/event-bus";
+import { EventBus } from "../../core";
+import { BaseUIElement } from "../base-ui-element";
 import { Screen } from "../screen";
 
-class Letter {
-  private _screen: Screen;
+class Letter extends BaseUIElement {
+  private _letter: string = "";
 
   constructor(screen: Screen) {
-    this._screen = screen;
+    super(screen);
 
-    EventBus.getInstance().subscribe("change-letter", ({ letter: { key } }) =>
-      this.render(key)
-    );
+    EventBus.getInstance().subscribe("change-letter", ({ letter: { key } }) => {
+      this._letter = key;
+    });
   }
 
-  render(letter: string) {
-    this._screen.context.clearRect(
-      0,
-      0,
-      this._screen.canvas.width,
-      this._screen.canvas.height
-    );
-
-    const fontSize = this._screen.canvas.height / 3;
-    this._screen.context.font = `${fontSize}px sans-serif`;
+  public draw() {
+    const fontSize = this.screen.canvas.height / 3;
+    this.screen.context.font = `${fontSize}px sans-serif`;
     const {
       actualBoundingBoxAscent,
       actualBoundingBoxLeft,
       actualBoundingBoxRight,
-    } = this._screen.context.measureText(letter);
-
+    } = this.screen.context.measureText(this._letter);
     const textWidth = actualBoundingBoxLeft + actualBoundingBoxRight;
     const textHeight = actualBoundingBoxAscent;
-    const posX = this._screen.canvas.width / 2 - textWidth / 2;
-    const posY = this._screen.canvas.height / 2 + textHeight / 2;
-    this._screen.context.fillText(letter, posX, posY);
+    const posX = this.screen.canvas.width / 2 - textWidth / 2;
+    const posY = this.screen.canvas.height / 2 + textHeight / 2;
+
+    // this.screen.context.clearRect(posX, posY, width, textHeight);
+
+    this.screen.context.fillText(this._letter, posX, posY);
   }
 }
 
