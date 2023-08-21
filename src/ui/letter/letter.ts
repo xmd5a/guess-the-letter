@@ -26,8 +26,6 @@ class Letter extends BaseUIElement {
     const posX = this.screen.canvas.width / 2 - textWidth / 2;
     const posY = this.screen.canvas.height / 2 + textHeight / 2;
 
-    // this.screen.context.clearRect(posX, posY, width, textHeight);
-
     this.screen.context.fillText(this._letter, posX, posY);
   }
 }
