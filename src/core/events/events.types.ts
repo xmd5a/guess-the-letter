@@ -1,4 +1,4 @@
-type EventTypes = "change-letter" | "guessed-letter";
+type EventTypes = "change-letter" | "guessed-letter" | "wrong-letter";
 
 type BaseEvent = {
   id: symbol;
@@ -10,11 +10,10 @@ type ChangeLetterEventPayload = {
   letter: { key: string; code: string };
 } & BaseEvent;
 
-export type { ChangeLetterEventPayload };
-
 type Events = {
   "change-letter": ChangeLetterEventPayload;
   "guessed-letter": BaseEvent;
+  "wrong-letter": BaseEvent;
 };
 
-export type { BaseEvent, EventTypes, Events };
+export type { BaseEvent, ChangeLetterEventPayload, EventTypes, Events };

@@ -1,4 +1,4 @@
-import { EventBus, GuessedLetterEvent } from "../../core";
+import { EventBus, GuessedLetterEvent, WrongLetterEvent } from "../../core";
 
 class KeyboardEventHandler {
   private _letter: { key: string; code: string } = { key: "", code: "" };
@@ -22,6 +22,7 @@ class KeyboardEventHandler {
     }
 
     if (event.code !== this._letter.code) {
+      EventBus.getInstance().publish("wrong-letter", new WrongLetterEvent());
       return;
     }
 
