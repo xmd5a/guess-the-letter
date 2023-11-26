@@ -2,7 +2,7 @@ import { EventBus, GuessedLetterEvent, WrongLetterEvent } from "../../core";
 
 class KeyboardEventHandler {
   private _letter: { key: string; code: string } = { key: "", code: "" };
-  private handlerFunction: any;
+  private handlerFunction: (event: KeyboardEvent) => void = () => null;
 
   constructor() {
     EventBus.getInstance().subscribe("change-letter", ({ letter }) => {

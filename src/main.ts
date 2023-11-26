@@ -1,60 +1,58 @@
 import "./styles.css";
 
-import { ChangeLetterEvent, EventBus } from "./core";
+import { ChangeLetterEvent, EventBus, SoundManager } from "./core";
 import { KeyboardEventHandler } from "./feature";
 import { UIEngine } from "./ui";
+import { Config } from "./main.types";
+import { PlaySoundEvent } from "./core/events/play-sound-event";
 
 class Engine {
-  private ui: UIEngine;
+  private _ui: UIEngine;
+  private _soundManager: SoundManager;
+  private _config: Config = { letters: [] };
 
   constructor() {
     new KeyboardEventHandler();
+    this._ui = new UIEngine();
+    this._soundManager = new SoundManager();
+    this.load();
 
-    this.ui = new UIEngine();
-    this.ui.render();
-    EventBus.getInstance().subscribe("guessed-letter", () => this.init());
+    EventBus.getInstance().subscribe("guessed-letter", () => {
+      this.init();
+    });
+    EventBus.getInstance().subscribe("sound-loading-complete", () => {
+      this.init();
+    });
+  }
+
+  private async load() {
+    const config = await fetch("./config.json");
+    this._config = await config.json();
+
+    this._soundManager.load(
+      this._config.letters.map(({ audio: src, id }) => ({ id, src }))
+    );
+    this._ui.render();
   }
 
   private generateLetter() {
-    const alphabet = [
-      { key: "A", code: "KeyA" },
-      { key: "B", code: "KeyB" },
-      { key: "C", code: "KeyC" },
-      { key: "D", code: "KeyD" },
-      { key: "E", code: "KeyE" },
-      { key: "F", code: "KeyF" },
-      { key: "G", code: "KeyG" },
-      { key: "H", code: "KeyH" },
-      { key: "I", code: "KeyI" },
-      { key: "J", code: "KeyJ" },
-      { key: "K", code: "KeyK" },
-      { key: "L", code: "KeyL" },
-      { key: "M", code: "KeyM" },
-      { key: "N", code: "KeyN" },
-      { key: "O", code: "KeyO" },
-      { key: "P", code: "KeyP" },
-      { key: "Q", code: "KeyQ" },
-      { key: "R", code: "KeyR" },
-      { key: "S", code: "KeyS" },
-      { key: "T", code: "KeyT" },
-      { key: "U", code: "KeyU" },
-      { key: "V", code: "KeyV" },
-      { key: "W", code: "KeyW" },
-      { key: "X", code: "KeyX" },
-      { key: "Y", code: "KeyY" },
-      { key: "Z", code: "KeyZ" },
+    return this._config.letters[
+      (Math.random() * this._config.letters.length) | 0
     ];
-
-    return alphabet[(Math.random() * alphabet.length) | 0];
   }
 
-  public init() {
+  private init() {
+    const letter = this.generateLetter();
+
     EventBus.getInstance().publish(
       "change-letter",
-      new ChangeLetterEvent(this.generateLetter())
+      new ChangeLetterEvent(letter)
+    );
+    EventBus.getInstance().publish(
+      "play-sound",
+      new PlaySoundEvent({ key: letter.id })
     );
   }
 }
 
-const game = new Engine();
-game.init();
+new Engine();

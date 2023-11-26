@@ -1,0 +1,30 @@
+{
+  "letters": [
+    { "id": "a", "audio": "./audio/a.mp3", "key": "A", "code": "KeyA" },
+    { "id": "b", "audio": "./audio/b.mp3", "key": "B", "code": "KeyB" },
+    { "id": "c", "audio": "./audio/c.mp3", "key": "C", "code": "KeyC" },
+    { "id": "d", "audio": "./audio/d.mp3", "key": "D", "code": "KeyD" },
+    { "id": "e", "audio": "./audio/e.mp3", "key": "E", "code": "KeyE" },
+    { "id": "f", "audio": "./audio/f.mp3", "key": "F", "code": "KeyF" },
+    { "id": "g", "audio": "./audio/g.mp3", "key": "G", "code": "KeyG" },
+    { "id": "h", "audio": "./audio/h.mp3", "key": "H", "code": "KeyH" },
+    { "id": "i", "audio": "./audio/i.mp3", "key": "I", "code": "KeyI" },
+    { "id": "j", "audio": "./audio/j.mp3", "key": "J", "code": "KeyJ" },
+    { "id": "k", "audio": "./audio/k.mp3", "key": "K", "code": "KeyK" },
+    { "id": "l", "audio": "./audio/l.mp3", "key": "L", "code": "KeyL" },
+    { "id": "m", "audio": "./audio/m.mp3", "key": "M", "code": "KeyM" },
+    { "id": "n", "audio": "./audio/n.mp3", "key": "N", "code": "KeyN" },
+    { "id": "o", "audio": "./audio/o.mp3", "key": "O", "code": "KeyO" },
+    { "id": "p", "audio": "./audio/p.mp3", "key": "P", "code": "KeyP" },
+    { "id": "q", "audio": "./audio/q.mp3", "key": "Q", "code": "KeyQ" },
+    { "id": "r", "audio": "./audio/r.mp3", "key": "R", "code": "KeyR" },
+    { "id": "s", "audio": "./audio/s.mp3", "key": "S", "code": "KeyS" },
+    { "id": "t", "audio": "./audio/t.mp3", "key": "T", "code": "KeyT" },
+    { "id": "u", "audio": "./audio/u.mp3", "key": "U", "code": "KeyU" },
+    { "id": "v", "audio": "./audio/v.mp3", "key": "V", "code": "KeyV" },
+    { "id": "w", "audio": "./audio/w.mp3", "key": "W", "code": "KeyW" },
+    { "id": "x", "audio": "./audio/x.mp3", "key": "X", "code": "KeyX" },
+    { "id": "y", "audio": "./audio/y.mp3", "key": "Y", "code": "KeyY" },
+    { "id": "z", "audio": "./audio/z.mp3", "key": "Z", "code": "KeyZ" }
+  ]
+}
